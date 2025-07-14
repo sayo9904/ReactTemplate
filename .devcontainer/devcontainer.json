@@ -1,0 +1,33 @@
+{
+  "name": "Typescript dev env",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "postStartCommand": "yarn install",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.vscode-typescript-next",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
+        // "dsznajder.es7-react-js-snippets"
+      ],
+      "settings": {
+        "editor.tabSize": 2,
+        "editor.formatOnSave": true,
+        "editor.formatOnPaste": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "eslint.useFlatConfig": true,
+        "markdown.extension.toc.updateOnSave": true,
+        "markdown.extension.toc.levels": "2..4",
+        "[dockerfile]": {
+          "editor.tabSize": 4,
+          "editor.quickSuggestions": {
+            "strings": true
+          }
+        }
+      }
+    }
+  }
+}
