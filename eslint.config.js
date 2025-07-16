@@ -1,23 +1,30 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
-import { globalIgnores } from 'eslint/config'
+import js from '@eslint/js';
+import tseslint from 'typescript-eslint';
+import pluginReactConfig from 'eslint-plugin-react/configs/recommended.js';
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-      reactHooks.configs['recommended-latest'],
-      reactRefresh.configs.vite,
-    ],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
-    },
+const commonConfig = {
+  files: ['**/*.{js,jsx,ts,tsx}'],
+  ignores: ['dist', 'node_modules', '.devcontainer'],
+  languageOptions: {
+    parserOptions: { ecmaFeatures: { jsx: true } },
+    globals: { browser: true },
   },
-])
+};
+
+const reactConfig = {
+  files: ['**/*.{jsx,tsx}'],
+  ...pluginReactConfig,
+  rules: {
+    ...pluginReactConfig.rules,
+    'react/react-in-jsx-scope': 'off',
+    'react/jsx-uses-react': 'off',
+  },
+  settings: { react: { version: 'detect' } },
+};
+
+export default [
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  reactConfig,
+  commonConfig,
+];
