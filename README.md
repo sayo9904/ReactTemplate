@@ -1,69 +1,41 @@
-# React + TypeScript + Vite
+## 開発の始め方
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### 前提
 
-Currently, two official plugins are available:
+- VSCode（Remote - Containers / DevContainers 機能）が利用できること
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 初回設定
 
-## Expanding the ESLint configuration
+1. リポジトリをクローン
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+git clone https://github.com/sayo9904/ReactTemplate.git
+cd ReactTemplate
+git init
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. VSCode でフォルダを開き、コマンドパレットから「DevContainers: Reopen in Container」を実行
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
+   > [!Note]
+   > コンテナ起動時に `yarn install` が自動実行され、依存関係がインストールされます。  
+   > これは `.devcontainer/devcontainer.json` の `postStartCommand` に設定されています。
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+3. コンテナ内のターミナルで開発サーバを起動
+
+```bash
+yarn dev      # または: npm run dev
+```
+
+4. viteの実行中に `o : Enter` を押下、またはブラウザで http://localhost:4173 を開いてアプリを確認
+
+### コンテナ内での他の操作
+
+ビルド / プレビュー / Lint / Format はコンテナ内で次のように実行します。
+
+```bash
+yarn build     # 本番用ビルド
+yarn preview   # ビルド成果物のローカルプレビュー
+yarn lint      # ESLint を実行
+yarn lint:fix  # 自動修正
+yarn format    # Prettier で整形
 ```
